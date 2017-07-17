@@ -2,27 +2,27 @@
 
 namespace Eth\Reactions;
 
+use Monolog\Logger;
 use StdClass;
 
 class Auth extends BaseReaction
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $key;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $secret;
 
     /**
      * Auth constructor.
+     * @param Logger $logger
      * @param string $key
      * @param string $secret
      */
-    public function __construct(string $key, string $secret)
+    public function __construct(Logger $logger, string $key, string $secret)
     {
+        parent::__construct($logger);
+
         $this->key = $key;
         $this->secret = $secret;
     }

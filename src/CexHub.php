@@ -37,30 +37,39 @@ class CexHub
 
 
     /**
-     * @param StdClass $response`
+     * @param StdClass $response
      * @throws Exception
      */
     public function react(StdClass $response)
     {
         $type = $response->e;
+        $this->logger->debug("Received {$type}", (array)$response);
 
         if (!isset($this->handlers[$type])) {
-            throw new Exception("Cannot handle message type: " . $type . PHP_EOL . print_r($response, true));
+            throw new Exception("Cannot handle message type: " . $type);
         }
 
         foreach ($this->handlers[$type] as $handler) {
+            $this->logger->debug('          - Responding with "' . get_class($handler) . '"');
             $handler->handle($response);
         }
+        $this->logger->debug('---');
     }
 
 
     public function receive()
     {
-        $rawData = $this->client->receive();
-        $this->client->getCloseStatus();
-        $rawData = json_decode($rawData);
+        try {
+            $rawData = $this->client->receive();
+            $data = json_decode($rawData);
+        } catch (Exception $e) {
+            $data = (object)[
+                "e"       => "timeout",
+                "message" => "This is a fake response that signals that the server has abandoned us",
+            ];
+        }
 
-        return $rawData;
+        return $data;
     }
 
     /**
