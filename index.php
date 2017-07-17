@@ -3,9 +3,9 @@
 include(dirname(__FILE__) . "/bootstrap.php");
 
 use Eth\CexHub;
-use Eth\Handlers\Auth as AuthHandler;
-use Eth\Handlers\Nop as NopHandler;
-use Eth\Handlers\Pong as PongHandler;
+use Eth\Reactions\Auth as AuthReaction;
+use Eth\Reactions\Nop as NopReaction;
+use Eth\Reactions\Pong as PongReaction;
 use Monolog\Logger;
 
 // logger
@@ -20,23 +20,23 @@ $client = new CexHub($logger);
 // auth handler
 $key = "aLDpsI8eOQNFs0PqkvJhUjUO04";
 $secret = "A3M4Sza2BOt4VnqDSRpRSolJI";
-$authHandler = new AuthHandler($key, $secret);
+$authReaction = new AuthReaction($key, $secret);
 
 // nop handler
-$nopHandler = new NopHandler();
+$nopReaction = new NopReaction();
 
 // ping handler
-$pongHandler = new PongHandler();
+$pongReaction = new PongReaction();
 
 
-$client->registerHandler("ping", $pongHandler);
-$client->registerHandler("auth", $nopHandler);
-$client->registerHandler("connected", $nopHandler);
-$client->registerHandler("disconnecting", $nopHandler);
+$client->registerReaction("ping", $pongReaction);
+$client->registerReaction("auth", $nopReaction);
+$client->registerReaction("connected", $nopReaction);
+$client->registerReaction("disconnecting", $nopReaction);
 
 
-while ($response = $client->receive()) {
-    $client->handle($response);
+while ($action = $client->receive()) {
+    $client->react($action);
 }
 
 

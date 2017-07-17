@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Eth\Handlers;
+namespace Eth\Reactions;
 
 
 use Eth\CexHub;
 use StdClass;
 
-class Nop extends BaseHandler
+class Nop extends BaseReaction
 {
     /**
      * @param StdClass $message

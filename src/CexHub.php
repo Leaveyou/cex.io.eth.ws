@@ -4,7 +4,7 @@
 namespace Eth;
 
 
-use Eth\Handlers\MessageHandler as MessageHandlerInterface;
+use Eth\Reactions\Reaction as ReactionInterface;
 use Exception;
 use Monolog\Logger;
 use StdClass;
@@ -15,7 +15,7 @@ class CexHub
     /** @var Client */
     protected $client;
 
-    /** @var MessageHandlerInterface[][] */
+    /** @var ReactionInterface[][] */
     protected $handlers = [];
 
     /** @var Logger  */
@@ -37,10 +37,10 @@ class CexHub
 
 
     /**
-     * @param StdClass $response
+     * @param StdClass $response`
      * @throws Exception
      */
-    public function handle(StdClass $response)
+    public function react(StdClass $response)
     {
         $type = $response->e;
 
@@ -78,13 +78,12 @@ class CexHub
 
     /**
      * Registers a handler for a particular event type
-     * @param string                  $type
-     * @param MessageHandlerInterface $handler
+     * @param string            $type
+     * @param ReactionInterface $handler
      */
-    public function registerHandler(string $type, MessageHandlerInterface $handler)
+    public function registerReaction(string $type, ReactionInterface $handler)
     {
         $handler->setHub($this);
         $this->handlers[$type][] = $handler;
     }
 }
-

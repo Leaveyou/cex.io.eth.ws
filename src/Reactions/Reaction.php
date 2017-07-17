@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
 
-namespace Eth\Handlers;
+namespace Eth\Reactions;
 
 
 use Eth\CexHub;
 use StdClass;
 
-interface MessageHandler
+interface Reaction
 {
     /**
      * @param StdClass $message

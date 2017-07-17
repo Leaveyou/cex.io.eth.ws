@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Eth\Handlers;
+namespace Eth\Reactions;
 
 
 use Eth\CexHub;
 
 
-abstract class BaseHandler implements MessageHandler
+abstract class BaseReaction implements Reaction
 {
     /** @var CexHub */
     protected $hub;

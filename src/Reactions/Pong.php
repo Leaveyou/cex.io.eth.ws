@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Eth\Handlers;
+namespace Eth\Reactions;
 
 
 use StdClass;
 
-class Pong extends BaseHandler
+class Pong extends BaseReaction
 {
     /**
      * @param StdClass $message

@@ -1,10 +1,10 @@
 <?php
 
-namespace Eth\Handlers;
+namespace Eth\Reactions;
 
 use StdClass;
 
-class Auth extends BaseHandler
+class Auth extends BaseReaction
 {
     /**
      * @var string
