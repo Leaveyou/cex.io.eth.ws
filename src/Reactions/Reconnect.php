@@ -6,7 +6,7 @@ namespace Eth\Reactions;
 
 use StdClass;
 
-class Log extends BaseReaction
+class Reconnect extends BaseReaction
 {
 
     /**
@@ -15,8 +15,6 @@ class Log extends BaseReaction
      */
     public function handle(StdClass $message): bool
     {
-        //$data = json_decode($message);
-        $this->logger->debug("\n" . print_r((array)$message, true));
-        return true;
+        $this->hub->connect();
     }
 }
