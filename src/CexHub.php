@@ -28,11 +28,9 @@ class CexHub
      */
     public function __construct(Logger $logger)
     {
-        $this->client = new Client("wss://ws.cex.io/ws/");
         $this->logger = $logger;
 
-        // we should get at least a "PING" message every 15 seconds
-        $this->client->setTimeout(16);
+        $this->connect();
     }
 
 
@@ -94,5 +92,13 @@ class CexHub
     {
         $handler->setHub($this);
         $this->handlers[$type][] = $handler;
+    }
+
+    public function connect()
+    {
+        $this->client = new Client("wss://ws.cex.io/ws/");
+
+        // we should get at least a "PING" message every 15 seconds
+        $this->client->setTimeout(16);
     }
 }

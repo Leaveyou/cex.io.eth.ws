@@ -16,5 +16,6 @@ class Reconnect extends BaseReaction
     public function handle(StdClass $message): bool
     {
         $this->hub->connect();
+        return true;
     }
 }
