@@ -55,15 +55,19 @@ class CexHub
     }
 
 
-    public function receive()
+    public function receive(): StdClass
     {
         try {
             $rawData = $this->client->receive();
             $data = json_decode($rawData);
+            if ($data === null) {
+                $jsonErrorMessage = json_last_error_msg();
+                throw new \Exception("$jsonErrorMessage");
+            }
         } catch (Exception $e) {
             $data = (object)[
                 "e"       => "timeout",
-                "message" => "This is a fake response that signals that the server has abandoned us",
+                "message" => "{$e->getMessage()}",
             ];
         }
 
