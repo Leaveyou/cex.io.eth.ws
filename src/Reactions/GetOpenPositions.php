@@ -4,10 +4,29 @@
 namespace Eth\Reactions;
 
 
+use Eth\Concepts\Currency;
+use Monolog\Logger;
 use StdClass;
 
 class GetOpenPositions extends BaseReaction
 {
+
+    /**
+     * @var Currency
+     */
+    protected $firstCurrency;
+    /**
+     * @var Currency
+     */
+    protected $secondCurrency;
+
+    public function  __construct(Logger $logger, $firstCurrency, $secondCurrency)
+    {
+        parent::__construct($logger);
+
+        $this->firstCurrency = $firstCurrency;
+        $this->secondCurrency = $secondCurrency;
+    }
 
     /**
      * @param StdClass $message
@@ -18,7 +37,7 @@ class GetOpenPositions extends BaseReaction
         $payload = (object)[
             "e"    => "open-positions",
             "data" => [
-                "pair" => ["ETH", "USD"],
+                "pair" => [$this->firstCurrency, $this->secondCurrency],
             ],
         ];
 

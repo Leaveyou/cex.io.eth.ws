@@ -24,7 +24,7 @@ class OrderBookSubscribe extends BaseReaction
                         "USD",
                     ],
                     "subscribe" => true,
-                    "depth"     => -1,
+                    "depth"     => 0,
                 ],
                 "oid"  => "order-book-subscribe-1",
             ]
