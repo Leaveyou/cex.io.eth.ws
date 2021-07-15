@@ -16,7 +16,7 @@
         }
     },
     "require": {
-        "monolog/monolog": "^1.23",
+        "monolog/monolog": "^2.3",
         "textalk/websocket": "1.0.*",
         "Leaveyou/console": "^1"
     }
